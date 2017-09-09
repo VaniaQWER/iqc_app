@@ -10,7 +10,8 @@ import LoadMore from './loadMore';
 import DeptSearchForm from './search';
 import CircleProgress from './circleProgress';
 import TableGrid from './tableGrid';
+import SearchSelect from './searchSelect'
 
 
-export { Logo, TopMenu, User, RegionMap, LoadMore, DeptSearchForm, TableGrid,
+export { Logo, TopMenu, User, RegionMap, LoadMore, DeptSearchForm, TableGrid, SearchSelect,
           Pie, Bar, CardContent, SiderMenu, CircleProgress };

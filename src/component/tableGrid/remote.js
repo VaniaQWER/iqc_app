@@ -69,7 +69,7 @@ class RemoteTable extends Component {
   }
   render () {
     const { columns, rowKey, rowClassName, 
-            rowSelection, scroll, footer } = this.props;
+            rowSelection, scroll, footer } = this.props;      
     return (
       <Table 
         columns={columns}

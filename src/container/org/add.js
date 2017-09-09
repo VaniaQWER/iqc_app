@@ -2,27 +2,68 @@
  * @file 新增机构
  */
 import React, { Component } from 'react';
-import { Row, Col, Form, Select, Input, Button, BackTop, Upload, Icon } from 'antd';
+import { Row, Col, Form, Select, Input, Button, Modal, Cascader,
+   BackTop, Upload, Icon, message } from 'antd';
 import { formItemLayout } from 'constants';
-import { getLocalOption } from '../../utils/common'
+import { getLocalOption } from 'utils/common';
+import { fetchData } from 'utils/tools';
+import { hashHistory } from 'react-router';
+import api from 'api';
 const FormItem = Form.Item;
 const Option = Select.Option;
-
 /**
  * 注册表单
  */
 class RegisterFormWrapper extends Component {
+  state = {
+    previewVisible: false,
+    previewImage: '',
+    fileList: [],
+    address: []
+  };
+  componentDidMount = () => {
+    //fetchData('/js/City.json', {}, data => console.log()'appliction/json')
+    fetchData({
+      url: api.CITY,
+      method: 'get',
+      type: 'application/json',
+      success: data => this.setState({address: data})
+    })
+  }
   submitHandler = (e) => {
     e.preventDefault();
     const { form, submit } = this.props;
     form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
+      if (!err && this.state.fileList.length) {
+        values.tfAccessory = this.state.fileList[0].originFileObj;
+        const address = values.address;
+        values.tfProvince = address[0];
+        values.tfCity = address[1];
+        values.tfDistrict = address[2];
         submit(values);
+      } else {
+        message.error('请上传附件')
       }
     });
   }
+  normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
+  }
+  handleCancel = () => this.setState({ previewVisible: false })
+  handlePreview = (file) => {
+    this.setState({
+      previewImage: file.url || file.thumbUrl,
+      previewVisible: true,
+    });
+  }
+  
+  handleChange = ({ fileList }) => this.setState({ fileList })
   render () {
     const { form } = this.props;
+    const { previewVisible, previewImage, fileList } = this.state;
     return (
       <Row style={{padding: 8}} className={'right_content'}>
         <Form
@@ -57,22 +98,24 @@ class RegisterFormWrapper extends Component {
             label='上传附件'
             {...formItemLayout}
           >  
-            <div className="dropbox">
-              {form.getFieldDecorator('tfAccessory', {
-                valuePropName: 'fileList',
-                getValueFromEvent: this.normFile,
-                rules: [{ required: true, message: '请上传附件' }],
-              })(
-                <Upload.Dragger name="files" action="/upload.do">
-                  <p className="ant-upload-drag-icon">
-                    <Icon type="inbox" />
-                  </p>
-                  <p className="ant-upload-text">组织机构代码附件(点击或拖拽上传)</p>
-                  <p className="ant-upload-hint">
-                    支持扩展名：.rar .zip .doc .docx .pdf .jpg...文件大小不得超过5M;
-                  </p>
-                </Upload.Dragger>
-              )}
+            <div className="clearfix">
+              <Upload
+                action="//jsonplaceholder.typicode.com/posts/"
+                listType="picture-card"
+                fileList={fileList}
+                onPreview={this.handlePreview}
+                onChange={this.handleChange}
+              >
+                { fileList.length === 1 ? null :
+                  <div>
+                    <Icon type="plus" />
+                    <div className="ant-upload-text">Upload</div>
+                  </div>
+                }
+              </Upload>
+              <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+                <img alt="example" style={{ width: '100%' }} src={previewImage} />
+              </Modal>
             </div>
           </FormItem> 
           <FormItem
@@ -115,9 +158,7 @@ class RegisterFormWrapper extends Component {
             {form.getFieldDecorator('address', {
               rules: [{ required: true, message: '请选择机构地址' }],
             })(
-              <Select>
-                <Option value={'地址'}>地址</Option>
-              </Select>
+              <Cascader options={this.state.address} changeOnSelect />
             )}
           </FormItem> 
           <FormItem
@@ -209,7 +250,20 @@ class RegisterFormWrapper extends Component {
 const RegisterForm = Form.create()(RegisterFormWrapper);
 class OrgAdd extends Component {
   submit = postData => {
-    console.log('提交数据:' + postData);
+    console.log('提交数据:', postData);
+    fetchData({
+      url: api.ADD_ORG,
+      body: postData,
+      success: data => {
+        if (data.status) {
+          message.success('操作成功!')
+          hashHistory.push('/org/orgInfo')
+        } else {
+          message.error(data.msg);
+        }
+      },
+      type: 'application/json'
+    })
   }
   render () {
     return (
