@@ -33,12 +33,14 @@ class RegisterFormWrapper extends Component {
     e.preventDefault();
     const { form, submit } = this.props;
     form.validateFieldsAndScroll((err, values) => {
-      if (!err && this.state.fileList.length) {
-        values.tfAccessory = this.state.fileList[0].originFileObj;
+      //&& this.state.fileList.length
+      if (!err ) {
+        //values.tfAccessory = this.state.fileList[0].thumbUrl;
         const address = values.address;
         values.tfProvince = address[0];
         values.tfCity = address[1];
         values.tfDistrict = address[2];
+        values.orgId = this.props.org.orgId;
         submit(values);
       } else {
         message.error('请上传附件')
@@ -95,7 +97,7 @@ class RegisterFormWrapper extends Component {
           >  
             {form.getFieldDecorator('orgCode', {
               rules: [{ required: true, message: '请输入组织机构代码' }],
-              initialValue: org.Code
+              initialValue: org.orgCode
             })(
               <Input placeholder='请输入组织机构代码' disabled={true}/>
             )}
@@ -270,7 +272,7 @@ class OrgAdd extends Component {
     console.log('提交数据:', postData);
     fetchData({
       url: api.ADD_ORG,
-      body: { ...postData, orgId: this.props.location.state.org},
+      body: JSON.stringify(postData),
       success: data => {
         if (data.status) {
           message.success('操作成功!')

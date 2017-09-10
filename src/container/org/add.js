@@ -34,8 +34,9 @@ class RegisterFormWrapper extends Component {
     e.preventDefault();
     const { form, submit } = this.props;
     form.validateFieldsAndScroll((err, values) => {
-      if (!err && this.state.fileList.length) {
-        values.tfAccessory = this.state.fileList[0].originFileObj;
+      //&& this.state.fileList.length
+      if (!err ) {
+        //values.tfAccessory = this.state.fileList[0].thumbUrl;
         const address = values.address;
         values.tfProvince = address[0];
         values.tfCity = address[1];
@@ -109,7 +110,7 @@ class RegisterFormWrapper extends Component {
                 { fileList.length === 1 ? null :
                   <div>
                     <Icon type="plus" />
-                    <div className="ant-upload-text">Upload</div>
+                    <div className="ant-upload-text">上传</div>
                   </div>
                 }
               </Upload>
@@ -165,7 +166,7 @@ class RegisterFormWrapper extends Component {
             label='医疗机构类型'
             {...formItemLayout}
             >  
-            {form.getFieldDecorator('orgId', {
+            {form.getFieldDecorator('hospitalType', {
               rules: [{ required: true, message: '请选择医疗机构类型' }],
             })(
               <Select>
@@ -253,7 +254,7 @@ class OrgAdd extends Component {
     console.log('提交数据:', postData);
     fetchData({
       url: api.ADD_ORG,
-      body: postData,
+      body: JSON.stringify(postData),
       success: data => {
         if (data.status) {
           message.success('操作成功!')

@@ -3,8 +3,8 @@
  */
 import React, { Component } from 'react';
 import { Card, Row, Col, Form, Input, Upload, Modal, 
-        Icon, Breadcrumb, Button } from 'antd';
-import { Link } from 'react-router';
+        Icon, Breadcrumb, Button,message } from 'antd';
+import { Link ,hashHistory} from 'react-router';
 import { SearchSelect } from 'component';
 import api from 'api';
 import { fetchData } from 'utils/tools';
@@ -30,7 +30,8 @@ class UserAddForm extends Component {
     previewVisible: false,
     previewImage: '',
     fileList: [],
-    other: true
+    other: true,
+    orgId:this.props.location.state? this.props.location.state.user.orgId : ""
   }
   componentDidMount = () => {
     const { location } = this.props;
@@ -66,22 +67,48 @@ class UserAddForm extends Component {
       previewVisible: true,
     });
   }
-  submit = (e) => {
-
+  submitHandler = (e) => {
+    e.preventDefault();
+    const { form } = this.props;
+    form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        values.orgId = this.state.orgId;
+        if(this.props.location.state ){
+          values.userId = this.props.location.state.user.userId;
+        }
+        console.log(values,'111')
+        fetchData({
+          url: api.ADDUPDATEUSER,
+          body: querystring.stringify(values),
+          success: data => {
+            if (data.status) {
+              message.success('操作成功!')
+              hashHistory.push('/user/userInfo')
+            } else {
+              message.error(data.msg);
+            }
+          }
+        })
+      }
+    });
   }
   change = (value) => {
     fetchData({
       url: api.SEARCH_ORGS_LIST,
       body: querystring.stringify({orgId: value}),
-      success: data => this.props.form.setFieldsValue({
-        orgCode: data.result.rows[0].orgCode
-      })
+      success: data => {
+        this.setState({orgId:value})
+        this.props.form.setFieldsValue({
+         orgCode: data.result.rows[0].orgCode
+          })
+        }
     })
   }
   render () {
     const { base, other, previewVisible, previewImage, fileList } = this.state;
     const { form, location } = this.props;
     const { state } = location;
+    console.log(this.props.location.state)
     return (
       <Row style={{padding: 8}} className={'right_content'}>
         {
@@ -93,7 +120,7 @@ class UserAddForm extends Component {
           : null
         }
         <Form
-          onSubmit={this.submit}
+          onSubmit={this.submitHandler}
         >
           <Col span={24}>
             <Card title={'基础信息'}>
@@ -102,7 +129,7 @@ class UserAddForm extends Component {
                 {...formItemLayout}
               >  
                 {form.getFieldDecorator('orgId', {
-                  rules: [{ required: true, message: '请选择医院' }],
+                  //rules: [{ required: true, message: '请选择医院' }],
                   initialValue: state ? state.user.orgName : null
                 })(
                   state ? <Input disabled={base}/> : 
@@ -135,7 +162,7 @@ class UserAddForm extends Component {
                     { fileList.length === 1 ? null :
                       <div>
                         <Icon type="plus" />
-                        <div className="ant-upload-text">Upload</div>
+                        <div className="ant-upload-text">上传</div>
                       </div>
                     }
                   </Upload>
@@ -159,7 +186,10 @@ class UserAddForm extends Component {
                   <Input disabled={other}/>
                 )}
               </FormItem>
-              <FormItem
+              {
+                state  ? null :
+                <div>
+                <FormItem
                 label='密码'
                 {...formItemLayout}
               >  
@@ -181,6 +211,9 @@ class UserAddForm extends Component {
                   <Input type='password' disabled={other}/>
                 )}
               </FormItem>
+              </div>
+
+              }
               <FormItem
                 label='联系人'
                 {...formItemLayout}

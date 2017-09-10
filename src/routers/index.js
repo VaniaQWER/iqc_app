@@ -23,6 +23,13 @@ const routes = {
           cb(null, require('container/login').default)
         })
       }
+    },{
+      path: 'hospital',
+      getComponent: (nextState, cb) => {
+        require.ensure([], (require) => {
+          cb(null, require('container/register/hospital').default)
+        })
+      }
     }, {
       path: 'register',
       getComponent: (nextState, cb) => {

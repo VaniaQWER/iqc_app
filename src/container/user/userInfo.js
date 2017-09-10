@@ -21,17 +21,42 @@ const resetPsd = (userId) => {
     }
   })
 }
+//审核用户
+const checkUser = (user) => {
+  fetchData({
+    url: api.AUDITUSERINFO,
+    body: querystring.stringify({ userId:user.userId,auditFstate:user.auditFstate }),
+    success: data => {
+      if (data.status) {
+        message.success('审核成功')
+      } else {
+        message.error(data.msg);
+      }
+    }
+  })
+}
 
 const columns = [
   {
     title: '操作',
     dataIndex: 'userId',
-    width: 150,
+    width: 180,
     render: (userId, user) => (
       <span>
         <Popconfirm title="是否重置密码?" onConfirm={resetPsd.bind(null, userId)} okText="确定" cancelText="取消">
           <a>重置密码</a>
         </Popconfirm>
+        {
+          user.auditFstate === "20" ?
+          <span>
+          <span className="ant-divider" />
+          <Popconfirm title="是否通过审核?" onConfirm={checkUser.bind(null, user)} okText="确定" cancelText="取消">
+            <a>审核</a>
+          </Popconfirm>
+          </span>
+          :
+          null
+        }
         <span className="ant-divider" />
         <Link to={{pathname: `/user/userInfo/${userId}`, state: {type: '编辑', user}}}>编辑</Link>
         <span className="ant-divider" />

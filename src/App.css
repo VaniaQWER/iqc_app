@@ -46,3 +46,62 @@ body {
   border-top-width: 0px;
   border-right-width: 0px;
 }
+/* 登录 */
+.bg{
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: url('./assets/bg.jpg') no-repeat;
+  background-size: 100% 100%;
+}
+.login-form {
+  width: 300px;
+  position: absolute;
+  right: 15%;
+  padding-top: 12%;
+}
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+}
+.login-form  .ant-input-group-wrapper{
+  display: block;
+}
+/* 注册 */
+.hosiptalIcon{
+  background: url('./assets/icon1.png') no-repeat;
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  background-size: 100% 100%;
+}
+.serviceIcon{
+  background: url('./assets/icon3.png') no-repeat;
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  background-size: 100% 100%;
+}
+
+/*lable显示文字时 left*/
+.ant-form-item-label-left{
+  text-align: left;
+  vertical-align: bottom;
+  line-height: 32px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+}
+.ant-form-item-label-left:after
+{
+    content: ":";
+    margin: 0 8px 0 2px;
+    position: relative;
+    top: -0.5px;
+}    
