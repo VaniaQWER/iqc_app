@@ -127,7 +127,7 @@ class QualityWrapperForm extends Component {
     const { form } = this.props;
     return (
       <Row style={styles.row} className='right_content'>
-        <Form className="login-form" onSubmit={this.submit}>
+        <Form onSubmit={this.submit}>
           {
             cardItems.map((item, index) => (
               <Card

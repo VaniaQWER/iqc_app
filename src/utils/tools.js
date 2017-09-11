@@ -6,7 +6,9 @@
 import { message } from 'antd';
 import { hashHistory } from 'react-router';
 
-const _remote = 'http://120.26.128.15:8903';
+const _remote = 'http://192.168.0.91:8080';
+// 外网测试环境 'http://120.26.128.15:8903';
+// 冯辉测试环境 'http://192.168.0.91:8080';
 
  /**
   * @summary 原生fetch方法改造,常规获取json格式数据

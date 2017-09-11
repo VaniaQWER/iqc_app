@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Input, Popconfirm, message } from 'antd';
-import { TableGrid } from 'component';
+import TableGrid from 'component/tableGrid';
 import { fetchData } from 'utils/tools';
 import querystring from 'querystring';
 import { Link } from 'react-router';

@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Card, Row, Col, Form, Input, Upload, Modal, 
         Icon, Breadcrumb, Button,message } from 'antd';
 import { Link ,hashHistory} from 'react-router';
-import { SearchSelect } from 'component';
+import SearchSelect from 'component/searchSelect';
 import api from 'api';
 import { fetchData } from 'utils/tools';
 import querystring from 'querystring';

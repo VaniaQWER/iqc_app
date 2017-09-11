@@ -3,7 +3,7 @@
  * @summary 科室&质量 公用
  */
 import React, { Component } from 'react';
-import { TableGrid } from 'component';
+import TableGrid  from 'component/tableGrid';
 const { RemoteTable } = TableGrid;
 const columns = [
   {

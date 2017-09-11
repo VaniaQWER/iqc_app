@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
-import { SiderMenu } from 'component';
+import SiderMenu from 'component/sider';
 import { connect } from 'react-redux';
 
 class Department extends Component {

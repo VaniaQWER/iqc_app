@@ -2,15 +2,18 @@
  * @file 湖北省医疗机构分布图
  */
 import React from 'react';
-import ReactEcharts from 'echarts-for-react'; 
-import echarts from 'echarts';
+import ReactEchartsCore from 'echarts-for-react/lib/core';
+import echarts from 'echarts/lib/echarts';
+import 'echarts/lib/chart/map';
+import 'echarts/lib/component/tooltip';
 
 //获取湖北省baidu json并注册
 const hubeiData = require('../../assets/hubei.json');
 echarts.registerMap('HuBei', hubeiData);
 
 const RegionMap = () => (
-  <ReactEcharts 
+  <ReactEchartsCore
+    echarts={echarts} 
     option={{
       title: {
         text: '湖北省医疗机构分布图 (2017)',

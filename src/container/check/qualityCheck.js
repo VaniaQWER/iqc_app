@@ -4,7 +4,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Row, Col } from 'antd';
-import { SiderMenu, DeptSearchForm } from 'component';
+import SiderMenu from 'component/sider';
+import DeptSearchForm from 'component/search';
 import CheckForm from './checkForm';
 
 class QualityCheck extends Component {

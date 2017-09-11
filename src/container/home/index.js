@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import TopMenu from 'component/topMenu';
+import User from 'component/user';
+import Logo from 'component/logo';
 import Dashboard from 'container/dashboard';
-import { TopMenu, User, Logo } from 'component';
 import { connect } from 'react-redux';
 import { Layout, Row, Col } from 'antd';
 import { userAction } from 'action';

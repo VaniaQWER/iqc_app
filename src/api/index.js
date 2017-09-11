@@ -1,3 +1,4 @@
+
 export default {
   SELECT_FORMULA_LIST: `/formulaController/selectFormulaList`, //查询质量管理列表
   SELECT_SCOPE_LIST: `/deptInfoController/searchSelectScopeList`, //查询医院列表
@@ -19,4 +20,7 @@ export default {
 
   //获取省市区级联菜单
   CITY: `/js/City.json`,
+
+  //HOME页面相关
+  ORG_INFO: `/deptInfoController/getOrgInfoTb`,
 }

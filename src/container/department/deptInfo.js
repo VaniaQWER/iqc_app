@@ -4,7 +4,9 @@ import api from 'api';
 import { Row, Col, Progress } from 'antd';
 import { fetchData } from 'utils/tools';
 import { Link } from 'react-router';
-import { DeptSearchForm, CircleProgress, LoadMore } from 'component';
+import DeptSearchForm from 'component/search';
+import CircleProgress from 'component/circleProgress';
+import LoadMore from 'component/loadMore';
 
 class DeptInfo extends Component {
   state = {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { TableGrid, SearchSelect } from 'component';
+import TableGrid from 'component/tableGrid';
+import SearchSelect from 'component/searchSelect';
 import { Row, Col, Select, Form, Button, Icon } from 'antd';
 import { getLocalOption } from 'utils/common';
 import { Link } from 'react-router';

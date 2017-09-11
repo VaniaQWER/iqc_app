@@ -1,8 +1,15 @@
 import React from 'react';
-import ReactEcharts from 'echarts-for-react'; 
+// import the core library.
+import ReactEchartsCore from 'echarts-for-react/lib/core';
+// then import echarts modules those you have used manually.
+import echarts from 'echarts/lib/echarts';
+import 'echarts/lib/chart/bar';
+import 'echarts/lib/chart/line';
+import 'echarts/lib/component/tooltip';
 
 const Bar = ({ color, series, xAxis, legend}) => (
-  <ReactEcharts 
+  <ReactEchartsCore
+    echarts={echarts} 
     option={{
       tooltip : {
         trigger: 'item',

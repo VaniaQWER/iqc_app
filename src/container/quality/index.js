@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Row, Col } from 'antd';
-import { SiderMenu } from 'component';
+import SiderMenu from 'component/sider';
 
 class Quality extends Component {
   getSiderMenu = () => {

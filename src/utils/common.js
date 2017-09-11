@@ -34,3 +34,11 @@ export const getLocalOption = key => {
   }
   return reactOptions;
 }
+
+//获取当前是属于上半年还是下半年
+export const getHalfYear = () => {
+  const nowDate = new Date();
+  const year = nowDate.getFullYear();
+  const mount = nowDate.getMonth();
+  return mount > 5 ? `${year}2` : `${year}1`;
+}

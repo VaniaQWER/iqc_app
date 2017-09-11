@@ -4,7 +4,8 @@
 import React, { Component } from 'react';
 import { Layout, Breadcrumb, Row, Col, Card, Icon } from 'antd';
 import { Link } from 'react-router';
-import { Bar, TableGrid } from 'component';
+import Bar from 'component/bar';
+import TableGrid from 'component/tableGrid';
 const { Content } = Layout;
 class QualityDetails extends Component {
   state = {

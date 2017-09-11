@@ -4,7 +4,10 @@
  */
 import React, { Component } from 'react';
 import { Layout, Breadcrumb, Row, Col, Card, Icon, Popover } from 'antd';
-import { Pie, Bar, CardContent, TableGrid} from 'component';
+import Pie from 'component/pie';
+import Bar from 'component/bar';
+import CardContent from 'component/card';
+import TableGrid from 'component/tableGrid';
 import { hashHistory, Link } from 'react-router';
 import querystring from 'querystring';
 const { RemoteTable } = TableGrid;
